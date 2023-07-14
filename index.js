@@ -34,6 +34,13 @@ app.get('/teams', (req, res) => {
   res.json(teamList);
 });
 
+// get one matches
+app.get('/teams/:id', (req, res) => {
+  const { id } = req.params;
+  const data = teamList.filter((team) => team.teamId === parseInt(id));
+  res.json(data);
+});
+
 // add team
 app.post('/teams', (req, res) => {
   const body = req.body;
