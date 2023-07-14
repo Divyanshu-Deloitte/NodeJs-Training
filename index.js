@@ -35,6 +35,26 @@ app.post('/matches', (req, res) => {
   });
 });
 
+// update matches
+app.patch('/matches/:id', (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  let isFound = false;
+  matchList.forEach((match, index) => {
+    if (match.matchId === parseInt(id)) {
+      matchList[index] = {
+        ...match,
+        ...body,
+      };
+      isFound = true;
+      return;
+    }
+  });
+  res.json({
+    message: isFound ? 'Match updated' : 'Match not found',
+  });
+});
+
 // get all teams
 app.get('/teams', (req, res) => {
   res.status(200).json({
