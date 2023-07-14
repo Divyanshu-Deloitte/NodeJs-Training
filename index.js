@@ -82,6 +82,26 @@ app.post('/teams', (req, res) => {
   });
 });
 
+// update teams
+app.patch('/teams/:id', (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  let isFound = false;
+  teamList.forEach((team, index) => {
+    if (team.teamId === parseInt(id)) {
+      teamList[index] = {
+        ...team,
+        ...body,
+      };
+      isFound = true;
+      return;
+    }
+  });
+  res.json({
+    message: isFound ? 'Team updated' : 'Team not found',
+  });
+});
+
 app.listen(PORT, () => {
   console.log('listening on port ${PORT}');
 });
