@@ -117,6 +117,21 @@ app.patch('/teams/:id', (req, res) => {
   });
 });
 
+// delete team
+app.delete('/teams/:id', (req, res) => {
+  const { id } = req.params;
+  const index = teamList.findIndex((team) => team.teamId === parseInt(id));
+  let isFound = false;
+  if (index < 0) {
+    isFound = true;
+  } else {
+    teamList.splice(index, 1);
+  }
+  res.json({
+    message: !isFound ? 'Team removed' : 'Team not found',
+  });
+});
+
 app.listen(PORT, () => {
   console.log('listening on port ${PORT}');
 });
