@@ -13,6 +13,13 @@ app.get('/matches', (req, res) => {
   res.json(matchList);
 });
 
+// get one matches
+app.get('/matches/:id', (req, res) => {
+  const { id } = req.params;
+  const data = matchList.filter((match) => match.matchId === parseInt(id));
+  res.json(data);
+});
+
 // add matches
 app.post('/matches', (req, res) => {
   const body = req.body;
