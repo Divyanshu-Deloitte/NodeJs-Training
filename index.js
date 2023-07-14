@@ -173,6 +173,31 @@ app.get('/topScorer/:teamNameRequired/', (req, res) => {
   });
 });
 
+// get top wicker taker
+app.get('/topwickertaker/:teamNameRequired', (req, res) => {
+  const { teamNameRequired } = req.params;
+  let playerList = [];
+  let wickets = -1;
+  teamList.forEach((team) => {
+    if (team.teamName === teamNameRequired) {
+      team.players.forEach((player, index) => {
+        if (player.wicketsTaken === wickets) {
+          playerList.push(player);
+        } else if (player.wicketsTaken > wickets) {
+          playerList = [];
+          playerList.push(player);
+          wickets = player.wicketsTaken;
+        }
+      });
+    }
+    return;
+  });
+  res.json({
+    message: playerList.length > 0 ? 'Players found' : 'Team not found',
+    data: playerList.length > 0 ? playerList : null,
+  });
+});
+
 app.listen(PORT, () => {
-  console.log('listening on port ${PORT}');
+  console.log(`listening on port ${PORT}`);
 });
