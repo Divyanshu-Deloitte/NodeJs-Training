@@ -55,6 +55,21 @@ app.patch('/matches/:id', (req, res) => {
   });
 });
 
+// delete matches
+app.delete('/matches/:id', (req, res) => {
+  const { id } = req.params;
+  const index = matchList.findIndex((match) => match.matchId === parseInt(id));
+  let isFound = false;
+  if (index < 0) {
+    isFound = true;
+  } else {
+    matchList.splice(index, 1);
+  }
+  res.json({
+    message: !isFound ? 'Match removed' : 'Match not found',
+  });
+});
+
 // get all teams
 app.get('/teams', (req, res) => {
   res.status(200).json({
