@@ -10,14 +10,20 @@ app.use(bodyparser.json());
 
 // get all matches
 app.get('/matches', (req, res) => {
-  res.json(matchList);
+  res.status(200).json({
+    message: 'data found',
+    data: matchList,
+  });
 });
 
 // get one matches
 app.get('/matches/:id', (req, res) => {
   const { id } = req.params;
   const data = matchList.filter((match) => match.matchId === parseInt(id));
-  res.json(data);
+  res.json({
+    message: data && data.length ? 'data found' : 'match not found',
+    data,
+  });
 });
 
 // add matches
@@ -31,14 +37,20 @@ app.post('/matches', (req, res) => {
 
 // get all teams
 app.get('/teams', (req, res) => {
-  res.json(teamList);
+  res.status(200).json({
+    message: 'data found',
+    data: teamList,
+  });
 });
 
 // get one matches
 app.get('/teams/:id', (req, res) => {
   const { id } = req.params;
   const data = teamList.filter((team) => team.teamId === parseInt(id));
-  res.json(data);
+  res.json({
+    message: data && data.length ? 'data found' : 'team not found',
+    data,
+  });
 });
 
 // add team
