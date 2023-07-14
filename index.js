@@ -148,6 +148,31 @@ app.get('/date/:date', (req, res) => {
   });
 });
 
+// get top scorer
+app.get('/topScorer/:teamNameRequired/', (req, res) => {
+  const { teamNameRequired } = req.params;
+  let playerList = [];
+  let runs = -1;
+  teamList.forEach((team) => {
+    if (team.teamName === teamNameRequired) {
+      team.players.forEach((player, index) => {
+        if (player.runsScored === runs) {
+          playerList.push(player);
+        } else if (player.runsScored > runs) {
+          playerList = [];
+          playerList.push(player);
+          runs = player.runsScored;
+        }
+      });
+    }
+    return;
+  });
+  res.json({
+    message: playerList.length > 0 ? 'Players found' : 'Team not found',
+    data: playerList.length > 0 ? playerList : null,
+  });
+});
+
 app.listen(PORT, () => {
   console.log('listening on port ${PORT}');
 });

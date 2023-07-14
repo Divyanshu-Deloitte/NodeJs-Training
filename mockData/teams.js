@@ -5,6 +5,7 @@ export var teamList = [
     players: [
       { playerId: 1, playerName: 'MSD', runsScored: 12000, wicketsTaken: 10 },
       { playerId: 2, playerName: 'Virat', runsScored: 18000, wicketsTaken: 17 },
+      { playerId: 3, playerName: 'Rohit', runsScored: 18000, wicketsTaken: 17 },
     ],
   },
   {
