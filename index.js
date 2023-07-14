@@ -132,6 +132,22 @@ app.delete('/teams/:id', (req, res) => {
   });
 });
 
+// get match by date
+app.get('/date/:date', (req, res) => {
+  const { date } = req.params;
+  let i = -1;
+  matchList.forEach((match, index) => {
+    if (new Date(match.date).toDateString() === new Date(date).toDateString()) {
+      i = index;
+      return;
+    }
+  });
+  res.json({
+    message: i > -1 ? 'Match Found' : 'Match not found',
+    data: i > -1 ? matchList[i] : null,
+  });
+});
+
 app.listen(PORT, () => {
   console.log('listening on port ${PORT}');
 });
