@@ -22,8 +22,18 @@ app.post('/matches', (req, res) => {
   });
 });
 
+// get all teams
 app.get('/teams', (req, res) => {
   res.json(teamList);
+});
+
+// add team
+app.post('/teams', (req, res) => {
+  const body = req.body;
+  teamList.push(body);
+  res.json({
+    message: 'team added',
+  });
 });
 
 app.listen(PORT, () => {
